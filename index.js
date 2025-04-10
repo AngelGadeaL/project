@@ -1,7 +1,15 @@
 import api, { route } from "@forge/api";
+import { invokeResolver } from "@forge/resolver";
 
 export async function guardarCodigoHandler(req) {
   const { codigounicoarq } = req.body;
+
+  if (!codigounicoarq) {
+    return {
+      statusCode: 400,
+      body: "❌ Error: El código único es requerido",
+    };
+  }
 
   try {
     const response = await api.asApp().requestJira(route`/rest/insight/1.0/object/create`, {
@@ -22,6 +30,10 @@ export async function guardarCodigoHandler(req) {
       }),
     });
 
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
+    }
+
     const data = await response.json();
     console.log("✅ Objeto creado:", data);
     return {
@@ -35,5 +47,10 @@ export async function guardarCodigoHandler(req) {
     };
   }
 }
+
+// Configuración del resolver
+invokeResolver({
+  guardarCodigoHandler,
+});
 
 

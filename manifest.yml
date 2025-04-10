@@ -1,18 +1,34 @@
 modules:
+  jira:adminPage:
+    - key: my-admin-page
+      title: "Mi Administrador de Códigos"
+      resource: main
+      resolver:
+        function: guardar-codigo-handler
+
   function:
     - key: guardar-codigo-handler
       handler: index.guardarCodigoHandler
 
 permissions:
   scopes:
-    - read:asset.objects:jira
-    - write:asset.objects:jira
+    - read:jira-work
+    - write:jira-work
+    - read:cmdb-object:jira      # leer objetos/atributos de Assets
+    - write:cmdb-object:jira     # actualizar objetos/atributos de Assets
+    - storage:app
+  external:
+    scripts:
+      - "cdn.jsdelivr.net"
+    fetch:
+      backend:
+        - "*.atlassian.net"
 
 app:
   id: ari:cloud:ecosystem::app/81c5934c-166f-4b58-8b2c-46998d07ec0e
   runtime:
     name: nodejs22.x
 
-
-
-
+resources:
+  - key: main
+    path: static/main

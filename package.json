@@ -4,14 +4,19 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "lint": "eslint src/**/*"
+    "lint": "eslint src/**/*",
+    "deploy": "forge deploy",
+    "tunnel": "forge tunnel",
+    "dev": "forge deploy --environment=development && forge tunnel"
   },
   "devDependencies": {
     "eslint": "^8.56.0"
   },
   "dependencies": {
-    "@forge/resolver": "1.6.9",
+    "@forge/api": "^5.1.1",
+    "@forge/resolver": "^1.6.9",
     "@forge/ui": "^1.11.3",
-    "buffer": "^6.0.3"
+    "buffer": "^6.0.3",
+    "@forge/bridge": "^2.0.0"
   }
 }
